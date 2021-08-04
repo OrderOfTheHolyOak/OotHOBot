@@ -9,9 +9,9 @@ available_roles = {}
 reaction_roles = {}
 excluded_roles = {}
 
-available_roles_file = "data/available_roles.json"
-reaction_roles_file = "data/reaction_roles.json"
-excluded_roles_file = "data/excluded_roles.json"
+available_roles_file = "data/roles/available.json"
+reaction_roles_file = "data/roles/reaction.json"
+excluded_roles_file = "data/roles/excluded.json"
 
 # Used to keep track of current role assignments
 try:

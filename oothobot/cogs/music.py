@@ -3,7 +3,7 @@ import discord
 import youtube_dl
 from discord.ext import commands
 
-from ytdl import YTDLSource
+from utils.ytdl import YTDLSource
 
 class music(commands.Cog):
     def __init__(self, bot):

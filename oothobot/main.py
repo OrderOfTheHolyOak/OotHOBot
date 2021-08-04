@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# from keep_alive import keep_alive
+# from utils.keep_alive import keep_alive
 # keep_alive()
 
 intents = discord.Intents.default()

@@ -11,6 +11,7 @@ It has a particular focus on New World and many features are specifically design
 pip3 install discord
 pip3 install flask
 pip3 install youtube-dl
+pip3 install python-dotenv
 ```
 
 ### Setup environment:

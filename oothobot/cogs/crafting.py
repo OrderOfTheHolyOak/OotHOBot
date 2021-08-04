@@ -5,7 +5,7 @@ import json
 #https://newworldforge.com/database/crafting-recipes
 
 resource_data = {}
-resource_data_file = "resource_data/resource_list.json"
+resource_data_file = "data/resources/resource_list.json"
 
 with open(resource_data_file) as file:
   resource_data = json.load(file)
