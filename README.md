@@ -26,7 +26,7 @@ pip3 install python-dotenv
 
 Set your token in `.env`.
 
-`python3 main.py`
+`python3 oothobot/main.py`
 
 ## Features
 
