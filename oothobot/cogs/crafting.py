@@ -5,7 +5,7 @@ import json
 #https://newworldforge.com/database/crafting-recipes
 
 resource_data = {}
-resource_data_file = "data/resources/resource_list.json"
+resource_data_file = "oothobot/data/resources/list.json"
 
 with open(resource_data_file) as file:
   resource_data = json.load(file)
@@ -16,7 +16,7 @@ class crafting(commands.Cog):
 
 
   @commands.command()
-  async def crafting(self, ctx, requested_item: str = None):
+  async def crafting(self, ctx, *, requested_item: str = None):
     if requested_item is None:
       embed = get_crafting_help()
       await ctx.send(embed=embed)
