@@ -26,6 +26,8 @@ pip3 install python-dotenv
 
 Set your token in `.env`.
 
+### Start the bot:
+
 `python3 oothobot/main.py`
 
 ## Features
