@@ -5,10 +5,17 @@ It has a particular focus on New World and many features are specifically design
 
 ## Development
 
+### Install dependencies:
+
 ```
 pip3 install discord
-cp .env.example .env
+pip3 install flask
+pip3 install youtube-dl
 ```
+
+### Setup environment:
+
+`cp .env.example .env`
 
 Set your token in `.env`.
 

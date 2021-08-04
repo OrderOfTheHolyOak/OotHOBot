@@ -23,11 +23,11 @@ bot = commands.Bot(
 )
 
 cogs: list = [
-  "music",
-  "online",
-  "build",
-  "roles",
-  "crafting"
+  "cogs.music",
+  "cogs.online",
+  "cogs.build",
+  "cogs.roles",
+  "cogs.crafting"
 ]
 
 @bot.event
