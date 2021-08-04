@@ -1,0 +1,104 @@
+{
+   "leatherworking":{
+      "raw hide":{
+         "name":"Raw Hide",
+         "creates_amount":1,
+         "required_materials":[
+            {
+               "material":"Skinning animals with a skinning tool.",
+               "required_amount":1
+            }
+         ]
+      },
+      "thick hide":{
+         "name":"Thick Hide",
+         "creates_amount":1,
+         "required_materials":[
+            {
+               "material":"Tool or armor with luck.",
+               "required_amount":1
+            },
+            {
+               "material":"Skinning Knife",
+               "required_amount":1
+            }
+         ]
+      },
+      "coarse leather":{
+         "name":"Coarse Leather",
+         "creates_amount":1,
+         "required_materials":[
+            {
+               "material":"Raw Hide",
+               "required_amount":4
+            }
+         ]
+      },
+      "rugged leather":{
+         "name":"Rugged Leather",
+         "creates_amount":1,
+         "required_materials":[
+            {
+               "material":"Coarse Leather",
+               "required_amount":3
+            },
+            {
+               "material":"Tannin",
+               "required_amount":1
+            }
+         ]
+      },
+      "layered leather":{
+         "name":"Layered Leather",
+         "creates_amount":1,
+         "required_materials":[
+            {
+               "material":"Thick Hide",
+               "required_amount":3
+            },
+            {
+               "material":"Rugged Leather",
+               "required_amount":1
+            },
+            {
+               "material":"Tannin",
+               "required_amount":1
+            }
+         ]
+      },
+      "infused leather":{
+         "name":"Infused Leather",
+         "creates_amount":1,
+         "required_materials":[
+            {
+               "material":"Iron Hide",
+               "required_amount":3
+            },
+            {
+               "material":"Layered Leather",
+               "required_amount":1
+            },
+            {
+               "material":"Tannin",
+               "required_amount":1
+            }
+         ]
+      }
+   },
+   "arcana":{
+      "bandage":{
+         "name":"Bandage",
+         "creates_amount":1,
+         "required_materials":[
+            {
+               "material":"Linen",
+               "required_amount":3
+            },
+            {
+               "material":"Herb",
+               "required_amount":5
+            }
+         ]
+      }
+   }
+}
