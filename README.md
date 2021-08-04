@@ -7,6 +7,12 @@ It has a particular focus on New World and many features are specifically design
 
 ### Install dependencies:
 
+**Automatically**
+
+`poetry install`
+
+**Manually**
+
 ```
 pip3 install discord
 pip3 install flask
