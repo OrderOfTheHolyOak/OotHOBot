@@ -5,8 +5,8 @@
          "creates_amount":1,
          "required_materials":[
             {
-               "material":"Skinning animals with a skinning tool.",
-               "required_amount":1
+               "material":"Skinning and Tracking, then skin an animal",
+               "required_amount":"0+"
             }
          ]
       },
@@ -15,12 +15,8 @@
          "creates_amount":1,
          "required_materials":[
             {
-               "material":"Tool or armor with luck.",
-               "required_amount":1
-            },
-            {
-               "material":"Skinning Knife",
-               "required_amount":1
+               "material":"skinning knife or armor with luck",
+               "required_amount": "a"
             }
          ]
       },

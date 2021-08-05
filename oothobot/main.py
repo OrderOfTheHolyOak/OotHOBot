@@ -31,7 +31,8 @@ cogs: list = [
   "cogs.online",
   "cogs.build",
   "cogs.roles",
-  "cogs.crafting"
+  "cogs.crafting",
+  "cogs.wiki"
 ]
 
 

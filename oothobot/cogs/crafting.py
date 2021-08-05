@@ -29,12 +29,15 @@ class crafting(commands.Cog):
       for index2, (key2, value2) in enumerate(value.items()):
         if key2.lower() == requested_item.lower():
           match_found = True
-          msg = f'To create {value2["creates_amount"]} {value2["name"]}, you need'
+          msg = f'To get {value2["creates_amount"]} {value2["name"]}, you need:\n'
+          requirements = []
           for requirement in value2["required_materials"]:
             amount = requirement["required_amount"]
             material = requirement["material"]
-            msg = msg + f" {amount} {material}"
-          await ctx.send(f"{msg}.")
+            requirements.append(f" `{amount} {material}`")
+          
+          msg = msg + "\n".join(requirements)
+          await ctx.send(f"{msg}")
     
     if not match_found:
       await ctx.send(f"Could not find {requested_item}.")
