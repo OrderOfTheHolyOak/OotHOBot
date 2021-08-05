@@ -259,8 +259,8 @@ class roles(commands.Cog):
         channel_id = rr.get("channelID")
         message_id = rr.get("messageID")
         embed.add_field(
-          name=index,
-          value=f"{emote} - @{role} - [message](https://www.discordapp.com/channels/{guild_id}/{channel_id}/{message_id})",
+          name=f"{emote} - @{role}",
+          value=f"ID: {index} - [message](https://www.discordapp.com/channels/{guild_id}/{channel_id}/{message_id})",
           inline=False,
         )
     await ctx.send(embed=embed)
