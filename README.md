@@ -28,7 +28,7 @@ Set your token in `.env`.
 
 ### Start the bot:
 
-`python3 oothobot/main.py`
+`python3 src/main.py`
 
 ## Features
 
@@ -38,3 +38,4 @@ Set your token in `.env`.
 * 🚫 - Get crafting recipes
 * ✅ - Ping online players of a given role
 * 🚫 - Opt out of ping online players feature
+* ✅ - Search wiki
