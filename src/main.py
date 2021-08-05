@@ -30,7 +30,7 @@ cogs: list = [
   "cogs.music",
   "cogs.online",
   "cogs.build",
-  "cogs.newroles",
+  "cogs.roles",
   "cogs.crafting",
   "cogs.wiki"
 ]
