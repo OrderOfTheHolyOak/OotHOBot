@@ -15,7 +15,7 @@ class wiki(commands.Cog):
     response = requests.get(url)
     if response.status_code != 200:
       url = f"https://newworld.fandom.com/wiki/Special:Search?query={quote_plus(search)}&scope=internal&navigationSearch=true"
-      msg = f"Didn't find a page for {search}\nBut here's a link to the wiki's search instead!\n{url}"
+      msg = f"Didn't find a page for {search}\nBut here's a link to the wiki's search instead!\n<{url}>"
 
     await ctx.send(msg)
 
