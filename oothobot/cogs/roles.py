@@ -215,7 +215,7 @@ class roles(commands.Cog):
   @commands.Cog.listener()
   async def on_raw_reaction_remove(self, payload: discord.RawReactionActionEvent):
     role, user = self.parse_reaction_payload(payload)
-    if role is not None and user is not None:
+    if role is not None and user is not None and (payload.user_id != self.bot.user.id):
       await user.remove_roles(role, reason="rolebot")
 
   @commands.has_permissions(manage_channels=True)
