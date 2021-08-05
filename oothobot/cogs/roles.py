@@ -13,6 +13,7 @@ available_roles_file = "oothobot/data/roles/available.json"
 reaction_roles_file = "oothobot/data/roles/reaction.json"
 excluded_roles_file = "oothobot/data/roles/excluded.json"
 
+
 # Used to keep track of current role assignments
 try:
   with open(reaction_roles_file) as file:
@@ -76,17 +77,16 @@ class roles(commands.Cog):
 
     for role in available_roles[str(guild_id)]:
       available_roles_array.append(f'{role["reaction_emoji"]} {role["name"]}')
-    
-    msg = "\n".join(available_roles_array)
 
     embed = discord.Embed(
       title = "Set your role",
       description = "Use the reacions below to setup your role in this company.\nEach role is represented by a reaction.\nSee below for a full list of roles and their associated reaction.",
       colour = discord.Colour.green()
     )
+
     embed.add_field(
       name = "Available Roles:",
-      value = msg
+      value = "\n".join(available_roles_array)
     )
     message = await ctx.send(embed=embed)
 
@@ -209,7 +209,7 @@ class roles(commands.Cog):
   @commands.Cog.listener()
   async def on_raw_reaction_add(self, payload: discord.RawReactionActionEvent):
     role, user = self.parse_reaction_payload(payload)
-    if role is not None and user is not None:
+    if role is not None and user is not None and (payload.user_id != self.bot.user.id):
       await user.add_roles(role, reason="rolebot")
 
   @commands.Cog.listener()

@@ -8,19 +8,23 @@ load_dotenv()
 # from utils.keep_alive import keep_alive
 # keep_alive()
 
+
 intents = discord.Intents.default()
 intents.members = True
 intents.presences = True
 intents.reactions = True
 
+
 command_prefix = "?"
 description = "Order of the Holy Oak Discord Bot"
+
 
 bot = commands.Bot(
   command_prefix = command_prefix,
   description = description,
   intents = intents
 )
+
 
 cogs: list = [
   "cogs.music",
@@ -29,6 +33,7 @@ cogs: list = [
   "cogs.roles",
   "cogs.crafting"
 ]
+
 
 @bot.event
 async def  on_ready():
@@ -47,7 +52,6 @@ async def  on_ready():
 async def ping(ctx):
     await ctx.send('**pong**')
 
-# bot.run(os.environ['TOKEN'])
 
 token = ""
 
