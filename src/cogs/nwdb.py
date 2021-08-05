@@ -3,6 +3,14 @@ import discord
 from discord.ext import commands
 from urllib.parse import quote
 
+rarity_colours = {
+  "0": discord.Colour.darker_grey(),
+  "1": discord.Colour.green(),
+  "2": discord.Colour.blue(),
+  "3": discord.Colour.purple(),
+  "4": discord.Colour.orange()
+}
+
 class nwdb(commands.Cog):
   def __init__(self, bot):
     self.bot = bot
@@ -20,7 +28,6 @@ class nwdb(commands.Cog):
     embed = discord.Embed(
       title = f"{count} search result(s) for \"{search}\":",
       description = f"[NWDB](https://nwdb.info/) aims to bring you the most comprehensive database for New World.",
-      colour = discord.Colour.green()
     )
 
     embed.set_thumbnail(url="https://nwdb.info/images/brand/logo_transparent_48.png")
@@ -31,10 +38,24 @@ class nwdb(commands.Cog):
         item_name = item['name']
         item_id = item['id']
         items.append(f"[{item_name}]({base_url}/item/{item_id}) \n")
+
+      if count > 10:
+        items = items[:10]
+
       embed.add_field(
         name = "Results:",
         value = "".join(items)
       )
+
+      if count == 1:
+        embed.colour = rarity_colours[str(item['rarity'])]
+
+      if count > len(items):
+        text = f"[here]({base_url})"
+        embed.add_field(
+          name = "Search results limited",
+          value = f"Only the first 10 results were shown. Click {text} and search via the website."
+        )
 
       await ctx.send(embed = embed)
     else:
