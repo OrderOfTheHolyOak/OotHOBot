@@ -9,9 +9,9 @@ available_roles = {}
 reaction_roles = {}
 excluded_roles = {}
 
-available_roles_file = "oothobot/data/roles/available.json"
-reaction_roles_file = "oothobot/data/roles/reaction.json"
-excluded_roles_file = "oothobot/data/roles/excluded.json"
+available_roles_file = "src/data/roles/available.json"
+reaction_roles_file = "src/data/roles/reaction.json"
+excluded_roles_file = "src/data/roles/excluded.json"
 
 
 # Used to keep track of current role assignments
