@@ -42,16 +42,8 @@ class online(commands.Cog):
   async def dont_notify_me(self, ctx):
     guild_id = str(ctx.guild.id)
     user_id = str(ctx.author.id)
-    user_already_exists = False
 
-    if not guild_id in opted_out:
-      opted_out[guild_id] = []
-
-    for opted_out_user in opted_out[guild_id]:
-      if opted_out_user == user_id:
-        user_already_exists = True
-
-    if user_already_exists == True:
+    if self.does_user_exist(guild_id, user_id):
       await ctx.send("You already do not receive pings from the online command.")
     else:
       opted_out[guild_id].append(user_id)
@@ -61,21 +53,20 @@ class online(commands.Cog):
   async def notify_me(self, ctx):
     guild_id = str(ctx.guild.id)
     user_id = str(ctx.author.id)
-    user_already_exists = False
 
-    if not guild_id in opted_out:
-      opted_out[guild_id] = []
-
-    for opted_out_user in opted_out[guild_id]:
-      if opted_out_user == user_id:
-        user_already_exists = True
-
-    if user_already_exists == False:
-      await ctx.send("You already receive pings from the online command.")
-    else:
+    if self.does_user_exist(guild_id, user_id):
       del opted_out[guild_id][opted_out[guild_id].index(user_id)]
       await ctx.send("You will now receive pings from the online command.")
+    else:
+      await ctx.send("You already receive pings from the online command.")
 
+  def does_user_exist(self, guild_id: str, user_id: str):
+    if not guild_id in opted_out:
+      opted_out[guild_id] = []
+    for opted_out_user in opted_out[guild_id]:
+      if opted_out_user == user_id:
+        return True
+    return False
 
 def setup(bot):
   bot.add_cog(online(bot))
