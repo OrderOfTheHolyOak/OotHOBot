@@ -174,44 +174,16 @@ class roles(commands.Cog):
 
   @commands.Cog.listener()
   async def on_raw_reaction_add(self, payload: discord.RawReactionActionEvent):
-    #get role
-    emote = str(payload.emoji)
-    user_id = payload.user_id
-    guild_id = payload.guild_id
-    guild = self.bot.get_guild(guild_id)
-    user = guild.get_member(user_id)
-    role = None
-
-    if user_id != self.bot.user.id:
-      categories = available_roles[str(guild_id)]
-      for category in categories:
-        for available_role in categories[category]:
-          emoji = available_role['emote']
-          if emoji == emote:
-            role = guild.get_role(available_role['role_id'])
-      if role is not None and user is not None:
-        await user.add_roles(role, reason="rolebot")
+    role, user = self.parse_reaction_payload(payload)
+    if role is not None and user is not None:
+      await user.add_roles(role, reason="rolebot")
 
 
   @commands.Cog.listener()
   async def on_raw_reaction_remove(self, payload: discord.RawReactionActionEvent):
-    #get role
-    emote = str(payload.emoji)
-    user_id = payload.user_id
-    guild_id = payload.guild_id
-    guild = self.bot.get_guild(guild_id)
-    user = guild.get_member(user_id)
-    role = None
-
-    if user_id != self.bot.user.id:
-      categories = available_roles[str(guild_id)]
-      for category in categories:
-        for available_role in categories[category]:
-          emoji = available_role['emote']
-          if emoji == emote:
-            role = guild.get_role(available_role['role_id'])
-      if role is not None and user is not None:
-        await user.remove_roles(role, reason="rolebot")
+    role, user = self.parse_reaction_payload(payload)
+    if role is not None and user is not None:
+      await user.remove_roles(role, reason="rolebot")
 
 
   #####################
@@ -232,19 +204,20 @@ class roles(commands.Cog):
     return role.name, emote
 
   def parse_reaction_payload(self, payload: discord.RawReactionActionEvent):
+    emoji = str(payload.emoji)
+    user_id = payload.user_id
     guild_id = payload.guild_id
-    data = reaction_roles.get(str(guild_id), None)
-    if data is not None:
-      for rr in data:
-        emote = rr.get("emote")
-        if payload.message_id == rr.get("messageID"):
-          if payload.channel_id == rr.get("channelID"):
-            if str(payload.emoji) == emote:
-              guild = self.bot.get_guild(guild_id)
-              role = guild.get_role(rr.get("roleID"))
-              user = guild.get_member(payload.user_id)
-              return role, user
-    return None, None
+    guild = self.bot.get_guild(guild_id)
+    user = guild.get_member(user_id)
+    role = None
+    if user_id != self.bot.user.id:
+      categories = available_roles[str(guild_id)]
+      for category in categories:
+        for available_role in categories[category]:
+          emote = available_role['emote']
+          if emoji == emote:
+            role = guild.get_role(available_role['role_id'])
+    return role, user
 
 def setup(bot):
   bot.add_cog(roles(bot))
