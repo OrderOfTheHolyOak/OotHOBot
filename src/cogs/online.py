@@ -13,30 +13,38 @@ class online(commands.Cog):
   @commands.command()
   async def online(self, ctx, *, role_name : str):
     roles = ctx.guild.roles
-    guild_id = ctx.guild.id
+    guild_id = str(ctx.guild.id)
     members_with_role: list = []
     online_members = []
     role_found = False
-    if not str(guild_id) in opted_out:
-      opted_out[str(guild_id)] = []
+
+    if not guild_id in opted_out:
+      opted_out[guild_id] = []
+
     for role in roles:
       if role.name.lower() == role_name.lower():
         role_found = True
+
         for role_member in role.members:
-          if (role_member.status == discord.Status.online
-            and role_member.id != ctx.author.id):
+          if (role_member.status == discord.Status.online # Only tag online people
+            and role_member.id != ctx.author.id # Don't tag person who ran command.
+            and not self.does_user_exist(guild_id, str(role_member.id))): # Don't tag opted-out members
             members_with_role.append(role_member)
+
     if role_found == False:
       await ctx.send(f"Didn't find role \"{role_name}\"")
       return
+
     if len(members_with_role) > 0:
       message = f"Alerting {len(members_with_role)} online member(s) with \"{role_name}\" role.\n"
       for member in members_with_role:
         online_members.append(f"<@{member.id}>")
+
       message += ", ".join(online_members)
       await ctx.send(message)
     else:
       await ctx.send(f"There aren't any {role_name}s online right now.")
+
 
   @commands.command()
   async def dont_notify_me(self, ctx):
