@@ -7,9 +7,9 @@ reaction_roles = {}
 excluded_roles = {}
 available_roles = {}
 
-reaction_roles_file = "src/data/newroles/reaction.json"
-excluded_roles_file = "src/data/newroles/excluded.json"
-available_roles_file = "src/data/newroles/available.json"
+reaction_roles_file = "src/data/roles/reaction.json"
+excluded_roles_file = "src/data/roles/excluded.json"
+available_roles_file = "src/data/roles/available.json"
 
 
 class roles(commands.Cog):
@@ -250,15 +250,15 @@ except (FileNotFoundError, json.JSONDecodeError):
 def store_reaction_roles():
   with open(reaction_roles_file, "w") as file:
     json.dump(reaction_roles, file)
+
+
 @atexit.register
-
-
 def store_available_roles():
   with open(available_roles_file, "w") as file:
     json.dump(available_roles, file)
+
+
 @atexit.register
-
-
 def store_excluded_roles():
   with open(excluded_roles_file, "w") as file:
     json.dump(excluded_roles, file)
