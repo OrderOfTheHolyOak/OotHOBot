@@ -1,18 +1,15 @@
-import discord
-from discord import guild
-from discord.utils import get
-from discord.ext import commands
 import json
 import atexit
-import os
+import discord
+from discord.ext import commands
 
-available_roles = {}
 reaction_roles = {}
 excluded_roles = {}
+available_roles = {}
 
-available_roles_file = "src/data/newroles/available.json"
 reaction_roles_file = "src/data/newroles/reaction.json"
 excluded_roles_file = "src/data/newroles/excluded.json"
+available_roles_file = "src/data/newroles/available.json"
 
 
 class roles(commands.Cog):
@@ -26,12 +23,10 @@ class roles(commands.Cog):
   @commands.command()
   async def roles(self, ctx):
     roles = ctx.author.roles
-
     roles_array = []
     for role in roles:
       if role.name != "@everyone":
         roles_array.append(role.name)
-
     string = "`, `".join(roles_array)
     await ctx.send(f"Hi <@{ctx.author.id}>, you have the following roles:\n`{string}`")
 
@@ -78,12 +73,10 @@ class roles(commands.Cog):
       title = f"Remove category **{category_name}** and **all roles within**?",
       colour = discord.Colours.red()
     )
-    category = None
     if categories is None:
       embed.description = "Couldn't find category."
     else:
       embed.description = "If you really want to do this, react with 🗑️"
-      category = categories[category_name]
       roles = []
       for role in categories[category_name]:
         roles.append(f"{role['emote']} {role['name']}")
@@ -121,7 +114,6 @@ class roles(commands.Cog):
       embed.description = "Couldn't find category."
     else:
       roles = categories[category_name]
-      role = None
       if roles is None:
         embed.description = "Couldn't find role."
       else:
