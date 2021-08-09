@@ -32,24 +32,24 @@ class roles(commands.Cog):
 
   @commands.command()
   async def available_roles(self, ctx):
-    guild_id = ctx.guild.id
+    guild_id = str(ctx.guild.id)
     msg = ""
-    if not str(guild_id) in available_roles:
-      available_roles[str(guild_id)] = {}
-    for category in available_roles[str(guild_id)]:
+    if not guild_id in available_roles:
+      available_roles[guild_id] = {}
+    for category in available_roles[guild_id]:
       msg += f"**{category}**:\n"
-      for role in available_roles[str(guild_id)][category]:
+      for role in available_roles[guild_id][category]:
         msg += f"**·** {role['emote']} {role['name']} \n"
       msg += "\n"
     await ctx.send(msg)
 
   @commands.command()
   async def add_category(self, ctx, *, category_name: str):
-    guild_id = ctx.guild.id
-    if not str(guild_id) in available_roles:
-      available_roles[str(guild_id)] = {}
-    if not str(category_name) in available_roles[str(guild_id)]:
-      available_roles[str(guild_id)][str(category_name)] = []
+    guild_id = str(ctx.guild.id)
+    if not guild_id in available_roles:
+      available_roles[guild_id] = {}
+    if not str(category_name) in available_roles[guild_id]:
+      available_roles[guild_id][str(category_name)] = []
       await ctx.send(f"Added {category_name} to roles list.")
       store_available_roles()
     else:
@@ -57,18 +57,18 @@ class roles(commands.Cog):
 
   @commands.command()
   async def add_role_to_category(self, ctx, category_name: str, emote, role: discord.Role):
-    guild_id = ctx.guild.id
-    if not str(guild_id) in available_roles:
-      available_roles[str(guild_id)] = {}
-    if not str(category_name) in available_roles[str(guild_id)]:
-      available_roles[str(guild_id)][str(category_name)] = []
+    guild_id = str(ctx.guild.id)
+    if not guild_id in available_roles:
+      available_roles[guild_id] = {}
+    if not str(category_name) in available_roles[guild_id]:
+      available_roles[guild_id][str(category_name)] = []
     role_name, role_emote = self.add_available_role(guild_id, category_name, emote, role)
     await ctx.send(f"Added {role_emote} {role_name} to {category_name}")
 
   @commands.command()
   async def remove_category(self, ctx, *, category_name: str):
-    guild_id = ctx.guild.id
-    categories = available_roles.get(str(guild_id), None)
+    guild_id = str(ctx.guild.id)
+    categories = available_roles.get(guild_id, None)
     embed = discord.Embed(
       title = f"Remove category **{category_name}** and **all roles within**?",
       colour = discord.Colours.red()
@@ -97,15 +97,15 @@ class roles(commands.Cog):
 
       await self.bot.wait_for("reaction_add", check=check)
       categories.pop(category_name)
-      available_roles[str(guild_id)] = categories
+      available_roles[guild_id] = categories
       store_available_roles()
       embed = discord.Embed(title=f"Category **{category_name}** and all roles within deleted")
       await ctx.send(embed=embed)
 
   @commands.command()
   async def remove_role_from_category(self, ctx, category_name: str, role_name: str):
-    guild_id = ctx.guild.id
-    categories = available_roles.get(str(guild_id), None)
+    guild_id = str(ctx.guild.id)
+    categories = available_roles.get(guild_id, None)
     embed = discord.Embed(
       title = f"Remove role **{role_name}** from category **{category_name}**",
       colour = discord.Colours.red()
@@ -138,15 +138,15 @@ class roles(commands.Cog):
 
   @commands.command()
   async def make_role_selection_post(self, ctx):
-    guild_id = ctx.guild.id
+    guild_id = str(ctx.guild.id)
     embed = discord.Embed(
       title = "Set your role",
       description = "Use the reacions below to setup your role in this company.\nEach role is represented by a reaction.\nSee below for a full list of roles and their associated reaction.",
       colour = discord.Colour.green()
     )
-    for category in available_roles[str(guild_id)]:
+    for category in available_roles[guild_id]:
       roles_array = []
-      for role in available_roles[str(guild_id)][category]:
+      for role in available_roles[guild_id][category]:
         roles_array.append(f"{role['emote']} {role['name']}")
 
       embed.add_field(
@@ -154,9 +154,9 @@ class roles(commands.Cog):
         value = "\n".join(roles_array)
       )
     post = await ctx.send(embed=embed)
-    for category in available_roles[str(guild_id)]:
+    for category in available_roles[guild_id]:
       roles_array = []
-      for role in available_roles[str(guild_id)][category]:
+      for role in available_roles[guild_id][category]:
         await post.add_reaction(role["emote"])
 
 
@@ -183,11 +183,11 @@ class roles(commands.Cog):
   #####################
 
   def add_available_role(self, guild_id, category_name, emote, role: discord.Role):
-    if not str(guild_id) in available_roles:
-      available_roles[str(guild_id)] = {}
-    if not str(category_name) in available_roles[str(guild_id)]:
-      available_roles[str(guild_id)][str(category_name)] = []
-    available_roles[str(guild_id)][str(category_name)].append({
+    if not guild_id in available_roles:
+      available_roles[guild_id] = {}
+    if not str(category_name) in available_roles[guild_id]:
+      available_roles[guild_id][str(category_name)] = []
+    available_roles[guild_id][str(category_name)].append({
       "emote": emote,
       "role_id": role.id,
       "name": role.name
@@ -203,7 +203,7 @@ class roles(commands.Cog):
     user = guild.get_member(user_id)
     role = None
     if user_id != self.bot.user.id:
-      categories = available_roles[str(guild_id)]
+      categories = available_roles[guild_id]
       for category in categories:
         for available_role in categories[category]:
           emote = available_role['emote']

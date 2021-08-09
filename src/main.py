@@ -29,7 +29,7 @@ bot = commands.Bot(
 cogs: list = [
   "cogs.music",
   "cogs.online",
-  "cogs.build",
+  "cogs.newbuild",
   "cogs.roles",
   "cogs.crafting",
   "cogs.wiki",
