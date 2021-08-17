@@ -47,7 +47,7 @@ class helper(commands.Cog):
           if command['command'] == help_command:
             if len(command['params']) > 0:
               msg = f"***Example usage for {help_command}:***\n"
-              msg += f"`{command['example']}`"
+              msg += f"`{self.bot.command_prefix}{command['example']}`"
             else:
               await ctx.send(f"There are no parameters for the `{help_command}` command.")
               return
