@@ -1,0 +1,8 @@
+{
+  "Help bot": [
+    {
+      "command": "help",
+      "description": "Shows this help menu"
+    }
+  ]
+}

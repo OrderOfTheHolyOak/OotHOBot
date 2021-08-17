@@ -8,7 +8,6 @@ load_dotenv()
 # from utils.keep_alive import keep_alive
 # keep_alive()
 
-
 intents = discord.Intents.default()
 intents.members = True
 intents.presences = True
@@ -24,7 +23,7 @@ bot = commands.Bot(
   description = description,
   intents = intents
 )
-
+bot.remove_command('help')
 
 cogs: list = [
   "cogs.music",
@@ -33,12 +32,13 @@ cogs: list = [
   "cogs.roles",
   "cogs.crafting",
   "cogs.wiki",
-  "cogs.nwdb"
+  "cogs.nwdb",
+  "cogs.helper"
 ]
 
 
 @bot.event
-async def  on_ready():
+async def on_ready():
   await bot.change_presence(activity=discord.Game(name="Stand tall, stand green!"))
 
   for cog in cogs:
