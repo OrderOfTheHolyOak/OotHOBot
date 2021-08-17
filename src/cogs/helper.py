@@ -8,6 +8,8 @@ settings_file = "src/data/settings/settings.json"
 
 commands_list = {}
 commands_file = "src/data/commands/commands.json"
+admin_commands_list = {}
+admin_commands_file = "src/data/commands/admin_commands.json"
 
 class helper(commands.Cog):
   def __init__(self, bot):
@@ -25,7 +27,7 @@ class helper(commands.Cog):
       await ctx.send("Something went wrong, please notify a developer")
 
   @commands.command()
-  async def help(self, ctx):
+  async def help(self, ctx, help_command: str = None):
     guild_id = check_file(ctx)
     try:
       admin_channel = str(settings[guild_id]["admin_channel"])
@@ -33,24 +35,61 @@ class helper(commands.Cog):
       await ctx.send("Please setup the admin channel first with `set_admin_channel` in the admin bot commands channel.")
     channel_id = str(ctx.channel.id)
 
-    embed = discord.Embed(
-      title = "Order of the Holy Oak bot help",
-      descripion = "Below is a list of commands you can use in this channel",
-      color = discord.Colour.orange()
-    )
+    if help_command is not None:
+      search_list = None
+      if channel_id == admin_channel:
+        search_list = {**commands_list, **admin_commands_list}
+      else:
+        search_list = commands_list.items()
+      msg = None
+      for bot_cog in search_list:
+        for command in search_list[bot_cog]:
+          if command['command'] == help_command:
+            if len(command['params']) > 0:
+              msg = f"***Example usage for {help_command}:***\n"
+              msg += f"`{command['example']}`"
+            else:
+              await ctx.send(f"There are no parameters for the `{help_command}` command.")
+              return
+      if msg is not None:
+        await ctx.send(msg)
+      else:
+        await ctx.send(f"Command not found: `{help_command}`")
 
-    commands_list_msg = ""
-    for bot_cog in commands_list:
-      commands_list_msg += f"_**{bot_cog}:**_\n"
-      for command in commands_list[bot_cog]:
-        commands_list_msg += f"**{command['command']}:** {command['description']}"
+    else:
+      embed = discord.Embed(
+        title = "Order of the Holy Oak bot help",
+        descripion = "Below is a list of commands you can use in this channel",
+        color = discord.Colour.orange()
+      )
 
-    embed.add_field(name="Commands", value=commands_list_msg, inline = False)
+      commands_list_msg = ""
+      for bot_cog in commands_list:
+        commands_list_msg += f"\n_**{bot_cog}:**_\n"
+        for command in commands_list[bot_cog]:
+          params = ""
+          if len(command['params']) > 0:
+            for param in command['params']:
+              params += f" <{param}>"
+          commands_list_msg += f"**{command['command']} {params}:** {command['description']}\n"
 
-    if channel_id == admin_channel:
-      embed.add_field(name="Admin commands", value="none yet", inline = False)
+      embed.add_field(name="Commands", value=commands_list_msg, inline = False)
 
-    await ctx.send(embed = embed)
+      if channel_id == admin_channel:
+        admin_commands_list_msg = ""
+        for bot_cog in admin_commands_list:
+          admin_commands_list_msg += f"\n_**{bot_cog}:**_\n"
+          for command in admin_commands_list[bot_cog]:
+            params = ""
+            if len(command['params']) > 0:
+              for param in command['params']:
+                params += f" <{param}>"
+            admin_commands_list_msg += f"**{command['command']} {params}:** {command['description']}\n"
+        embed.add_field(name="Admin commands", value=admin_commands_list_msg, inline = False)
+
+      embed.add_field(name="Extra information", value="Some commands require parameters, for some examples please use:\n`help <command_name>`")
+
+      await ctx.send(embed = embed)
 
 try:
   with open(settings_file) as file:
@@ -64,6 +103,13 @@ try:
     commands_list = json.load(file)
 except (FileNotFoundError, json.JSONDecodeError):
   with open(commands_file, "w") as file:
+    json.dump({}, file)
+
+try:
+  with open(admin_commands_file) as file:
+    admin_commands_list = json.load(file)
+except (FileNotFoundError, json.JSONDecodeError):
+  with open(admin_commands_file, "w") as file:
     json.dump({}, file)
 
 def check_file(ctx):

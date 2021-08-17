@@ -1,0 +1,71 @@
+{
+  "Build Bot": [
+    {
+      "command": "add_role_build",
+      "params": [],
+      "description": "Add a build for a given role",
+      "example": ""
+    },
+    {
+      "command": "add_weapon_build",
+      "params": [],
+      "description": "Add a build for a given weapon",
+      "example": ""
+    },
+    {
+      "command": "show_all_builds",
+      "params": [],
+      "description": "Shows a list of every build stored",
+      "example": ""
+    }
+  ],
+  "Role Bot": [
+    {
+      "command": "add_category",
+      "params": [
+        "category name"
+      ],
+      "description": "Add a role category",
+      "example": "add_category 'Game Roles'"
+    },
+    {
+      "command": "remove_category",
+      "params": [
+        "category name"
+      ],
+      "description": "Remove a role category",
+      "example": "remove_category 'Game Roles'"
+    },
+    {
+      "command": "add_role_to_category",
+      "params": [
+        "category name",
+        "emote",
+        "role id"
+      ],
+      "description": "Add a role to a category",
+      "example": "add_role_to_category 'Game Roles' 🛡️ 869925260621922344"
+    },
+    {
+      "command": "remove_role_from_category",
+      "params": [
+        "category name",
+        "role name"
+      ],
+      "description": "Remove a role from a category",
+      "example": "remove_role_from_category 'Game Roles' tank"
+    },
+    {
+      "command": "make_role_selection_post",
+      "params": [],
+      "description": "Makes a role selection post, the bot will set up all the reactions to the post.",
+      "example": ""
+    },
+    {
+      "command": "available_roles",
+      "params": [],
+      "description": "Show all available roles, categorised",
+      "example": ""
+    }
+  ]
+}

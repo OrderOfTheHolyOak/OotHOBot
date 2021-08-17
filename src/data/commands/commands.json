@@ -1,8 +1,104 @@
 {
-  "Help bot": [
+  "Help Bot": [
     {
       "command": "help",
-      "description": "Shows this help menu"
+      "params": [],
+      "description": "Shows this help menu",
+      "example": ""
+    }
+  ],
+  "Music Bot": [
+    {
+      "command": "play",
+      "params": [
+        "YouTube link"
+      ],
+      "description": "Plays linked YouTube music in VC you're in",
+      "example": "play https://www.youtube.com/watch?v=qS5-QmkKzJQ"
+    },
+    {
+      "command": "pause",
+      "params": [],
+      "description": "Pauses playback of current song",
+      "example": ""
+    },
+    {
+      "command": "resume",
+      "params": [],
+      "description": "Resumes playback of current song",
+      "example": ""
+    },
+    {
+      "command": "stop",
+      "params": [],
+      "description": "Stops playback of current song",
+      "example": ""
+    },
+    {
+      "command": "leave",
+      "params": [],
+      "description": "Tell the bot to leave the VC",
+      "example": ""
+    }
+  ],
+  "Build Bot": [
+    {
+      "command": "build",
+      "params": [
+        "role or weapon"
+      ],
+      "description": "Shows a list of recommended builds for a given role or weapon",
+      "example": "build Great Axe"
+    }
+  ],
+  "New World DB Bot": [
+    {
+      "command": "nwdb",
+      "params": [
+        "search"
+      ],
+      "description": "Searches NWDB.info for an item/skill etc.",
+      "example": "nwdb Fae Iron"
+    }
+  ],
+  "Online Bot": [
+    {
+      "command": "online",
+      "params": [
+        "role"
+      ],
+      "description": "Pings online members of given role",
+      "example": "online dps"
+    },
+    {
+      "command": "dont_notify_me",
+      "params": [],
+      "description": "Excludes you from notifications other players create.",
+      "example": ""
+    },
+    {
+      "command": "notify_me",
+      "params": [],
+      "description": "Removes you from the exclusions list",
+      "example": ""
+    }
+  ],
+  "Wiki Bot": [
+    {
+      "command": "wiki",
+      "params": [
+        "search"
+      ],
+      "description": "Searches New World Wiki for given item/skill etc.",
+      "example": "wiki Fae Iron"
+    }
+  ],
+  "Role Bot": [
+    {
+      "command": "roles",
+      "params": [],
+      "description": "Show your Discord roles",
+      "example": ""
     }
   ]
 }
