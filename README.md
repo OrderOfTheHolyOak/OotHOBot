@@ -34,8 +34,9 @@ Set your token in `.env`.
 
 * ✅ - Manage roles and permissions
 * ✅ - Play music
-* 🚫 - Get recommended builds
-* 🚫 - Get crafting recipes
+* ✅ - Get recommended builds
+* ✅ - Get crafting recipes
 * ✅ - Ping online players of a given role
-* 🚫 - Opt out of ping online players feature
+* ✅ - Opt out of ping online players feature
 * ✅ - Search wiki
+* ✅ - Search NWDB.io
