@@ -18,7 +18,7 @@ class nwdb(commands.Cog):
   @commands.command()
   async def nwdb(self, ctx, *, search : str):
     base_url = "https://nwdb.info/db"
-    url = f"{base_url}/search/{quote(search)}.json"
+    url = f"{base_url}/search/{quote(search)}"
 
     response = requests.get(url).json()
     data = response['data']
