@@ -8,6 +8,7 @@ from utils.ytdl import YTDLSource
 class music(commands.Cog):
   def __init__(self, bot):
     self.bot = bot
+    self.connected = False
 
   @commands.command()
   async def play(self, ctx, url : str):
@@ -16,26 +17,25 @@ class music(commands.Cog):
         await ctx.send("Please only provide YouTube URLs")
         return
 
-      if os.path.exists("song.webm"):
-        os.remove("song.webm")
-    
+      filename = ''
+      
       try:
-        await YTDLSource.from_url(url, loop=self.bot.loop)
+        filename = await YTDLSource.from_url(url, loop=self.bot.loop)
       except youtube_dl.utils.DownloadError:
         await ctx.send("YouTube video not found")
         return
 
       voice_channel = ctx.author.voice.channel
 
-      await voice_channel.connect()
-
-      for file in os.listdir("./"):
-        if file.endswith(".webm"):
-          os.rename(file, "song.webm")
+      if self.connected == False:
+        await voice_channel.connect()
+        self.connected = True
 
       voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
       
-      voice.play(discord.FFmpegPCMAudio("song.webm"))
+      if voice.is_playing():
+        voice.stop()
+      voice.play(discord.FFmpegPCMAudio(filename))
 
   @commands.command()
   async def leave(self, ctx):
