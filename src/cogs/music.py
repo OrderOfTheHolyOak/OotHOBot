@@ -27,11 +27,7 @@ class music(commands.Cog):
 
       voice_channel = ctx.author.voice.channel
 
-      try:
-        await voice_channel.connect()
-      except:
-        await ctx.send("Unable to join VC - Do I have permission?")
-        return
+      await voice_channel.connect()
 
       for file in os.listdir("./"):
         if file.endswith(".webm"):
