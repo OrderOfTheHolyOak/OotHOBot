@@ -71,7 +71,7 @@ class helper(commands.Cog):
           if len(command['params']) > 0:
             for param in command['params']:
               params += f" <{param}>"
-          commands_list_msg += f"**{command['command']} {params}:** {command['description']}\n"
+          commands_list_msg += f"**{self.bot.command_prefix}{command['command']} {params}:** {command['description']}\n"
 
       embed.add_field(name="Commands", value=commands_list_msg, inline = False)
 
@@ -84,10 +84,10 @@ class helper(commands.Cog):
             if len(command['params']) > 0:
               for param in command['params']:
                 params += f" <{param}>"
-            admin_commands_list_msg += f"**{command['command']} {params}:** {command['description']}\n"
+            admin_commands_list_msg += f"**{self.bot.command_prefix}{command['command']} {params}:** {command['description']}\n"
         embed.add_field(name="Admin commands", value=admin_commands_list_msg, inline = False)
 
-      embed.add_field(name="Extra information", value="Some commands require parameters, for some examples please use:\n`help <command_name>`")
+      embed.add_field(name="Extra information", value=f"Some commands require parameters, for some examples please use:\n`{self.bot.command_prefix}help <command_name>`")
 
       await ctx.send(embed = embed)
 
