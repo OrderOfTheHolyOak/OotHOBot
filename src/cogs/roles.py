@@ -159,6 +159,34 @@ class roles(commands.Cog):
       for role in available_roles[guild_id][category]:
         await post.add_reaction(role["emote"])
 
+  @commands.command()
+  async def update_role_selection_post(self, ctx, message_id):    
+    guild_id = str(ctx.guild.id)
+    embed = discord.Embed(
+      title = "Set your role",
+      description = "Use the reacions below to setup your role in this company.\nEach role is represented by a reaction.\nSee below for a full list of roles and their associated reaction.",
+      colour = discord.Colour.green()
+    )
+    channel = ctx.channel
+    message = await channel.fetch_message(message_id)
+
+    if message is None or not message:
+      await ctx.send("Couldn't find message")
+      return
+    
+    for category in available_roles[guild_id]:
+      roles_array = []
+      for role in available_roles[guild_id][category]:
+        roles_array.append(f"{role['emote']} {role['name']}")
+
+      embed.add_field(
+        name = f"**{category}**:",
+        value = "\n".join(roles_array)
+      )
+    await message.edit(embed=embed)
+    for category in available_roles[guild_id]:
+      for role in available_roles[guild_id][category]:
+        await message.add_reaction(role["emote"])
 
   #####################
   #      Events       #
