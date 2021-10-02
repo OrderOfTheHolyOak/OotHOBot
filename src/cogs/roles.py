@@ -203,7 +203,7 @@ class roles(commands.Cog):
     user = guild.get_member(user_id)
     role = None
     if user_id != self.bot.user.id:
-      categories = available_roles[guild_id]
+      categories = available_roles[str(guild_id)]
       for category in categories:
         for available_role in categories[category]:
           emote = available_role['emote']
